@@ -10,3 +10,7 @@
 ## 0.0.3
 
 - Enable to override dipose method for the store and effect
+
+## 0.0.4
+
+- Update the license
