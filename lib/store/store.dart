@@ -3,27 +3,24 @@ part of '../codux.dart';
 class Store<T> extends _EventListener {
   late final BehaviorSubject<T> _subject;
 
-  bool get hasState => _subject.hasValue;
-
-  T get state => _subject.value;
-
-  Stream<T> get stream => _subject.stream;
+  Stream<T> get stream => _subject;
 
   final Map<Type, dynamic> _reducerManifest = {};
 
-  Store(InitialState<T>? initialState) {
+  Store({T? initialState}) {
     _initializeSubject(initialState);
     _subscribe();
   }
 
-  void _initializeSubject(InitialState<T>? initialState) {
+  void _initializeSubject(T? initialState) {
     _subject = initialState == null
         ? BehaviorSubject<T>()
-        : BehaviorSubject<T>.seeded(initialState.value);
+        : BehaviorSubject<T>.seeded(initialState);
   }
 
   @protected
-  void on<K extends Event>(T Function(K event) reducer) {
+  void on<K extends Event>(
+      T Function(StoreCurrent<T> current, K event) reducer) {
     _reducerManifest[K] = reducer;
   }
 
@@ -35,7 +32,7 @@ class Store<T> extends _EventListener {
       return;
     }
 
-    final result = reducer(event);
+    final result = reducer(StoreCurrent(_subject.valueOrNull), event);
 
     _subject.add(result);
   }
