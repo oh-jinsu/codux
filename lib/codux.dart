@@ -1,10 +1,10 @@
 library codux;
 
-import 'dart:collection';
-import 'dart:async';
+import 'dart:collection' show Queue;
+import 'dart:async' show StreamSubscription;
 
 import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:rxdart/rxdart.dart' show BehaviorSubject, PublishSubject;
 
 part 'listener.dart';
 part 'app/app.dart';
