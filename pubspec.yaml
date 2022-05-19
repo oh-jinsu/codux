@@ -1,7 +1,7 @@
 name: codux
 description: Codux is a state management library inspired by Redux.
 version: 0.0.1
-homepage:
+homepage: https://github.com/oh-jinsu/codux
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
