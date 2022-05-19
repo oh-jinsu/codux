@@ -26,17 +26,17 @@ abstract class Component extends Lifecycle with _CoduxApi {
   @protected
   void useStore(
     Store Function() constructor, {
-    Type? constructAt,
-    Type? destroyAt,
+    Type? from,
+    Type? until,
   }) {
     final registry = _Registry<Store>(
       constructor,
-      from: constructAt ?? runtimeType,
-      to: destroyAt ?? runtimeType,
+      from: from ?? runtimeType,
+      until: until ?? runtimeType,
     );
 
     _storeManifest.registerConstructor(
-      constructAt ?? runtimeType,
+      from ?? runtimeType,
       registry,
     );
   }
@@ -45,12 +45,12 @@ abstract class Component extends Lifecycle with _CoduxApi {
   void useEffect(
     Effect Function() constructor, {
     Type? from,
-    Type? to,
+    Type? until,
   }) {
     final registry = _Registry<Effect>(
       constructor,
       from: from ?? runtimeType,
-      to: to ?? runtimeType,
+      until: until ?? runtimeType,
     );
 
     _effectManifest.registerConstructor(
@@ -71,7 +71,7 @@ abstract class Component extends Lifecycle with _CoduxApi {
 
       _storeManifest.addShortcut(store);
 
-      _storeManifest.registerDestructor(registry.to, store);
+      _storeManifest.registerDestructor(registry.until, store);
     }
   }
 
@@ -85,7 +85,7 @@ abstract class Component extends Lifecycle with _CoduxApi {
     for (final registry in registries) {
       final effect = registry.constructor();
 
-      _effectManifest.registerDestructor(registry.to, effect);
+      _effectManifest.registerDestructor(registry.until, effect);
     }
   }
 

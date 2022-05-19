@@ -12,8 +12,8 @@ class Welcome extends Component {
   void onCreated(BuildContext context) {
     useStore(
       () => CounterStore(),
-      constructAt: IncrementCounter,
-      destroyAt: DecrementCounter,
+      from: IncrementCounter,
+      until: DecrementCounter,
     );
 
     super.onCreated(context);
