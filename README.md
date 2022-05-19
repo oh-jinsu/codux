@@ -52,7 +52,7 @@ class CounterStore extends Store<int> {
 ```dart
 class FindMoviesEffect extends Effect {
   FindMoviesEffect() {
-    on<FindMovies>((current, event) {
+    on<FindMovies>((event) {
       Client.get("/movies").then((data) {
         dispatch(MoviesFound(data));
       });
