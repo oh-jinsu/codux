@@ -13,6 +13,11 @@ abstract class _EventListener {
 
   @mustCallSuper
   void _dispose() {
+    onDispose();
+
     _subscription.cancel();
   }
+
+  @protected
+  void onDispose() {}
 }
